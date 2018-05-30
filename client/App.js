@@ -19,6 +19,10 @@ class App extends Component {
 		socket.on("message", message => this.messageReceive(message));
 		socket.on("update", ({ users }) => this.chatUpdate(users));
 	}
+	componentWillUnmount() {
+		socket.off("message");
+		socket.off("update");
+	}
 	messageReceive(message) {
 		const messages = [message, ...this.state.messages];
 		this.setState({ messages });
